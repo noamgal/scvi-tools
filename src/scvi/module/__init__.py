@@ -15,6 +15,7 @@ from ._vae import (
     _compute_mmd,
     _compute_mmd_loss,
     gaussian_kernel,
+    zero_dimension_scalar_to_tensor,
 )
 from ._vaec import VAEC
 
@@ -36,4 +37,5 @@ __all__ = [
     "_compute_fast_mmd",
     "_compute_mmd_loss",
     "_calculate_batch_indices",
+    zero_dimension_scalar_to_tensor,
 ]
