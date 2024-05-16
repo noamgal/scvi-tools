@@ -1010,6 +1010,12 @@ def _calculate_batch_indices(x: torch.Tensor) -> torch.Tensor:
     return batch_indices
 
 
+def zero_dimension_scalar_to_tensor(z: torch.Tensor) -> torch.Tensor:
+    if z.dim() == 0:
+        return torch.unsqueeze(z, 0)
+    return z
+
+
 def _compute_mmd_loss(
     z: torch.Tensor,
     batch_indices: torch.Tensor,
@@ -1053,7 +1059,9 @@ def _compute_mmd_loss(
             mmd_loss = batch_mmd_loss
         else:
             # logging.warning(f"MMD loss compute {mmd_loss.shape = } ")
+            batch_mmd_loss = zero_dimension_scalar_to_tensor(batch_mmd_loss)
             batch_mmd_loss_length = batch_mmd_loss.size(0)
+            mmd_loss = zero_dimension_scalar_to_tensor(mmd_loss)
             mmd_loss_length = mmd_loss.size(0)
 
             if batch_mmd_loss_length < mmd_loss_length:
